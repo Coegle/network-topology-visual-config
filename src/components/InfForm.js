@@ -8,12 +8,13 @@ const InfForm = ({ initConfig }) => {
   const formRef = createRef()
   useEffect(() => {
     formRef.current.formApi.setValue('config', initConfig)
-  }, [formRef, initConfig])
+  }, [initConfig])
 
   const onSubmit = event => {
     const idx = event.currentTarget.dataset.idx
     disableConfSetting(idx)
     const values = formRef.current.formApi.getValues()
+    console.log(values);
     formRef.current.formApi.setValues(values)
     setCurrentConf(values)
   }
