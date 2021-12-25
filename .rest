@@ -1,0 +1,110 @@
+POST   http://localhost:8888/telnet
+Content-Type: application/json
+
+{
+   "routerId":1
+}
+
+###
+POST   http://localhost:8888/telnet
+Content-Type: application/json
+
+{
+   "routerId":2
+}
+
+###
+POST   http://localhost:8888/telnet
+Content-Type: application/json
+
+{
+   "routerId":3
+}
+
+###
+POST   http://localhost:8888/interface
+Content-Type: application/json
+
+{
+   "connection_id":1,
+   "interfaceNum":"s0/0/0",
+   "ip_addr":"192.168.1.1",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/interface
+Content-Type: application/json
+
+{
+   "connection_id":1,
+   "interfaceNum":"s0/0/0",
+   "ip_addr":"192.168.1.2",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/interface
+Content-Type: application/json
+
+{
+   "connection_id":0,
+   "interfaceNum":"s0/0/1",
+   "ip_addr":"192.168.2.1",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/interface
+Content-Type: application/json
+
+{
+   "connection_id":2,
+   "interfaceNum":"s0/0/1",
+   "ip_addr":"192.168.2.2",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/ipRoute
+Content-Type: application/json
+
+{
+   "connection_id":0,
+   "interfaceNum":"s0/0/0",
+   "ip_addr":"192.168.2.0",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/ipRoute
+Content-Type: application/json
+
+{
+   "connection_id":2,
+   "interfaceNum":"s0/0/1",
+   "ip_addr":"192.168.1.0",
+   "netMask":"255.255.255.0"
+}
+
+###
+POST   http://localhost:8888/sendCommand
+Content-Type: application/json
+
+{
+   "connection_id":0,
+   "command":"待定"
+}
+
+###
+POST   http://localhost:8888/ospf
+Content-Type: application/json
+
+{
+   "connection_id": 1,
+   "ospf_id": 1,
+   "area_id": 0,
+   "ip_addr":"192.168.1.0",
+   "netMask":"0.0.0.255"
+}
+

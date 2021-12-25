@@ -1,18 +1,9 @@
-import { Button, Toast } from '@douyinfe/semi-ui'
+import { Button } from '@douyinfe/semi-ui'
 import React from 'react'
-import NetworkApi from '../services/api'
-import FakeConfig from '../fakeConfig'
 const RouterVisual = ({ devIds, setSelectedDev }) => {
 
   const onClickConnectRouter = async (routerId) => {
     setSelectedDev(routerId)
-    try {
-      await NetworkApi.connectRouter(routerId)
-    } catch (excep) {
-      if (!FakeConfig.FakeBackend) {
-        Toast.info(excep.message)
-      }
-    }
   }
   return (
     <div>

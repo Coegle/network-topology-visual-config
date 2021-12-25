@@ -1,24 +1,28 @@
-import React, { useState } from 'react'
-import { Card, Row, Col, Button, Layout } from '@douyinfe/semi-ui'
+import React, { useEffect, useState } from 'react'
+import { Card, Row, Col, Layout } from '@douyinfe/semi-ui'
 import RouterConf from '../components/RouterConf'
 import RouterVisual from '../components/RouterVisual'
-import FakeConfig from '../fakeConfig'
+import LoadFileButton from '../components/LoadFileButton'
 
-const MainPage = () => {
-  const [imptConfig, setImptConfig] = useState(FakeConfig.IPAddrConfigs)
+const MainPage = ({ file, setFile }) => {
   const [selectedDev, setSelectedDev] = useState(0)
+  const [newConfig, setNewConfig] = useState(file.content)
+  useEffect(() => {
+    setNewConfig(file.content)
+  }, [file])
+
   const { Content } = Layout
   return (
     <Layout>
       <Content>
-        <Button style={{ marginBottom: '10px' }}>重新导入配置文件</Button>
+        <LoadFileButton file={file} setFile={setFile} hasNew={false} showFileName={true} />
         <Layout>
           <Row gutter={16} justify='space-between'>
             <Col span={10}>
               <Card><RouterVisual setSelectedDev={setSelectedDev} /></Card>
             </Col>
             <Col span={14}>
-              <Card><RouterConf config={imptConfig[selectedDev]} setImptConfig={setImptConfig} /></Card>
+              <Card><RouterConf config={newConfig[selectedDev]} setImptConfig={setNewConfig} /></Card>
             </Col>
           </Row>
         </Layout>

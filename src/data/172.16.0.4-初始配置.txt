@@ -1,0 +1,33 @@
+// 在enable下
+config terminal
+interface f0/0
+ip address 172.16.0.4 255.255.255.0
+no shutdown
+exit
+
+interface f0/1
+no ip address
+shutdown
+exit
+
+interface s0/0/0
+no ip address
+shutdown
+exit
+
+interface s0/0/1
+no ip address
+shutdown
+exit
+
+line vty 0 4
+password CISCO
+login
+no exec-timeout
+exit
+enable password
+end
+copy running-config start-up-config
+
+// 最后一定要确保 copy 成功了
+
