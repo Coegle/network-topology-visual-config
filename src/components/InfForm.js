@@ -2,16 +2,21 @@ import React, { createRef, useState, useEffect } from 'react'
 import { Col, Row, Form, Button, ArrayField, Toast } from '@douyinfe/semi-ui'
 import API from '../services/api'
 
-const InfForm = ({ initConfig, connection_id }) => {
+const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
   const [confState, setConfState] = useState([false, false, false, false])
   const [currentConf, setCurrentConf] = useState({ IPAddrConfig: initConfig })
   const formRef = createRef()
-  
+
   useEffect(() => {
     console.log('initConfig', initConfig);
     setCurrentConf({ IPAddrConfig: initConfig })
     formRef.current.formApi.setValue('IPAddrConfig', initConfig)
   }, [initConfig])
+
+  useEffect(() => {
+    // Toast.info(JSON.stringify(currentConf))
+    preSaveInfConfig('IPAddrConfig', currentConf.IPAddrConfig)
+  }, [currentConf])
 
   const onSubmit = event => {
     const idx = event.currentTarget.dataset.idx
@@ -48,13 +53,8 @@ const InfForm = ({ initConfig, connection_id }) => {
   const disableConfSetting = p => {
     setConfState(confState.map((val, idx) => idx === Number(p) ? !val : val))
   }
-  const onGet = () => {
-    const values = formRef.current.formApi.getValues()
-    Toast.info(JSON.stringify(values))
-  }
   return (
     <div>
-      <Button onClick={onGet}>Get</Button>
       <Row>
         <Col span={4}>
           <div>端口</div>
