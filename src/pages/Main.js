@@ -11,6 +11,10 @@ const MainPage = ({ file, setFile }) => {
     setNewConfig(file.content)
   }, [file])
 
+  const setRoutersConfig = () => {
+    // setNewConfig()
+  }
+
   const { Content } = Layout
   return (
     <Layout>
@@ -19,10 +23,10 @@ const MainPage = ({ file, setFile }) => {
         <Layout>
           <Row gutter={16} justify='space-between'>
             <Col span={10}>
-              <Card><RouterVisual setSelectedDev={setSelectedDev} /></Card>
+              <Card><RouterVisual config={newConfig} setSelectedDev={setSelectedDev} /></Card>
             </Col>
             <Col span={14}>
-              <Card><RouterConf config={newConfig[selectedDev]} setImptConfig={setNewConfig} /></Card>
+              <Card><RouterConf routersConfig={newConfig.routersConfig[selectedDev]} setRoutersConfig={setRoutersConfig} /></Card>
             </Col>
           </Row>
         </Layout>

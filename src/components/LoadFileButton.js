@@ -12,10 +12,10 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName }) => {
 
   const connectRouters = async ({ name, content }) => {
     let errorRouters = []
-    for (const [idx, router] of content.entries()) {
+    for (const [idx, router] of content.routersConfig.entries()) {
       try {
         const { connection_id } = await api.connectRouter({ routerId: idx })
-        content[idx].connection_id = connection_id
+        content.routersConfig[idx].connection_id = connection_id
       } catch (excep) {
         errorRouters = errorRouters.concat(router.routerName)
       }
@@ -23,9 +23,9 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName }) => {
 
     if (configs.fakeBackend) {
       console.log(content);
-      const fakedContent = content.map((it, idx) => { return { ...it, connection_id: idx } })
-      console.log(fakedContent);
-      setFile({ name, content: fakedContent })
+      content.routersConfig = content.routersConfig.map((it, idx) => { return { ...it, connection_id: idx } })
+      console.log(content);
+      setFile({ name, content: content })
       history.push('/topology')
     }
     else if (errorRouters.length !== 0) { // 出错了

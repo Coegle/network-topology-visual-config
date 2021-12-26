@@ -1,105 +1,131 @@
-[
-  {
-    "routerName": "R1",
-    "IPAddrConfig": [
-      {
-        "name": "FastEthernet0/0",
-        "abbr": "f0/0",
-        "ip_addr": "172.16.0.2",
-        "netMask": "255.255.255.0",
-        "configurable": false
+{
+  "routersConfig": [
+    {
+      "routerName": "R1",
+      "IPAddrConfig": [
+        {
+          "name": "FastEthernet0/0",
+          "abbr": "f0/0",
+          "ip_addr": "172.16.0.2",
+          "netMask": "255.255.255.0",
+          "configurable": false
+        },
+        {
+          "name": "FastEthernet0/1",
+          "abbr": "f0/1",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/0",
+          "abbr": "s0/0/0",
+          "ip_addr": "192.168.1.1",
+          "netMask": "255.255.255.0",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/1",
+          "abbr": "s0/0/1",
+          "configurable": true
+        }
+      ],
+      "staticRoute": [
+        {
+          "ip_addr": "192.168.2.0",
+          "netMask": "255.255.255.0",
+          "interfaceNum": "s0/0/0"
+        }
+      ]
+    },
+    {
+      "routerName": "R2",
+      "IPAddrConfig": [
+        {
+          "name": "FastEthernet0/0",
+          "abbr": "f0/0",
+          "ip_addr": "172.16.0.3",
+          "netMask": "255.255.255.0",
+          "configurable": false
+        },
+        {
+          "name": "FastEthernet0/1",
+          "abbr": "f0/1",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/0",
+          "abbr": "s0/0/0",
+          "ip_addr": "192.168.1.2",
+          "netMask": "255.255.255.0",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/1",
+          "abbr": "s0/0/1",
+          "ip_addr": "192.168.2.1",
+          "netMask": "255.255.255.0",
+          "configurable": true
+        }
+      ]
+    },
+    {
+      "routerName": "R3",
+      "IPAddrConfig": [
+        {
+          "name": "FastEthernet0/0",
+          "abbr": "f0/0",
+          "ip_addr": "172.16.0.4",
+          "netMask": "255.255.255.0",
+          "configurable": false
+        },
+        {
+          "name": "FastEthernet0/1",
+          "abbr": "f0/1",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/0",
+          "abbr": "s0/0/0",
+          "configurable": true
+        },
+        {
+          "name": "Serial0/0/1",
+          "abbr": "s0/0/1",
+          "ip_addr": "192.168.2.2",
+          "netMask": "255.255.255.0",
+          "configurable": true
+        }
+      ],
+      "staticRoute": [
+        {
+          "ip_addr": "192.168.2.0",
+          "netMask": "255.255.255.0",
+          "interfaceNum": "s0/0/0"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": {
+        "routerIdx": 0,
+        "interface": "s0/0/0"
       },
-      {
-        "name": "FastEthernet0/1",
-        "abbr": "f0/1",
-        "configurable": true
+      "to": {
+        "routerIdx": 1,
+        "interface": "s0/0/0"
       },
-      {
-        "name": "Serial0/0/0",
-        "abbr": "s0/0/0",
-        "ip_addr": "192.168.1.1",
-        "netMask": "255.255.255.0",
-        "configurable": true
+      "network": "192.168.1.0"
+    },
+    {
+      "from": {
+        "routerIdx": 1,
+        "interface": "s0/0/1"
       },
-      {
-        "name": "Serial0/0/1",
-        "abbr": "s0/0/1",
-        "configurable": true
-      }
-    ],
-    "staticRoute": [
-      {
-        "ip_addr": "192.168.2.0",
-        "netMask": "255.255.255.0",
-        "interfaceNum": "s0/0/0"
-      }
-    ]
-  },
-  {
-    "routerName": "R2",
-    "IPAddrConfig": [
-      {
-        "name": "FastEthernet0/0",
-        "abbr": "f0/0",
-        "ip_addr": "172.16.0.3",
-        "netMask": "255.255.255.0",
-        "configurable": false
+      "to": {
+        "routerIdx": 2,
+        "interface": "s0/0/1"
       },
-      {
-        "name": "FastEthernet0/1",
-        "abbr": "f0/1",
-        "configurable": true
-      },
-      {
-        "name": "Serial0/0/0",
-        "abbr": "s0/0/0",
-        "ip_addr": "192.168.1.2",
-        "netMask": "255.255.255.0",
-        "configurable": true
-      },
-      {
-        "name": "Serial0/0/1",
-        "abbr": "s0/0/1",
-        "ip_addr": "192.168.2.1",
-        "netMask": "255.255.255.0",
-        "configurable": true
-      }
-    ]
-  },
-  {
-    "routerName": "R3",
-    "IPAddrConfig": [
-      {
-        "name": "FastEthernet0/0",
-        "abbr": "f0/0",
-        "ip_addr": "172.16.0.4",
-        "netMask": "255.255.255.0",
-        "configurable": false
-      },
-      {
-        "name": "FastEthernet0/1",
-        "abbr": "f0/1",
-        "configurable": true
-      },
-      {
-        "name": "Serial0/0/0",
-        "abbr": "s0/0/0",
-        "configurable": true
-      },
-      {
-        "name": "Serial0/0/1",
-        "abbr": "s0/0/1",
-        "ip_addr": "192.168.2.2",
-        "netMask": "255.255.255.0",
-        "configurable": true
-      }
-    ],
-    "staticRoute": [
-      {
-        "ip_addr": "192.168.2.0",
-        "netMask": "255.255.255.0",
-        "interfaceNum": "s0/0/0"
-      }
-    ]
-  }
-]
+      "network": "192.168.2.0"
+    }
+  ]
+}
