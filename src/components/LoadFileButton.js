@@ -5,7 +5,7 @@ import configs from '../utils/configs'
 import api from '../services/api'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-const LoadFileButton = ({ file, setFile, hasNew, showFileName }) => {
+const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) => {
   const { Text } = Typography
   const inputRef = useRef()
   const history = useHistory()
@@ -77,7 +77,7 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName }) => {
         onClick={() => { inputRef.current.click() }}
         style={{ padding: '6px 24px', marginRight: 12 }}
         type="primary">
-        加载拓扑文件
+        {buttonLabel}
       </Button>
       {
         hasNew

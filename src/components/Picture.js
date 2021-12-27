@@ -26,8 +26,8 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
         },
         new go.Binding('location', 'loc', go.Point.parse).makeTwoWay(go.Point.stringify),
         $(go.Picture, {//节点显示图片
-          width: 120,
-          height: 80
+          width: 75,
+          height: 40
         },
           new go.Binding('source', 'img'),
         ),

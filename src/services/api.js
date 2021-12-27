@@ -25,7 +25,17 @@ const getIPRoutingTable = (reqBody) => {
 }
 
 const configStaticRoute = async ({ connection_id, interfaceNum, ip_addr, netMask }) => {
-  const res = await axios.post(`${baseUrl}/ipRoute`)
+  const res = await axios.post(`${baseUrl}/ipRoute`, { connection_id, interfaceNum, ip_addr, netMask })
+  return res.data
+}
+
+const runTest = async ({ connection_id, command }) => {
+  const res = await axios.post(`${baseUrl}/sendCommand`, { connection_id , command })
+  return res.data
+}
+
+const sendCommand = async ({connection_id, command}) => {
+  const res = await axios.post(`${baseUrl}/sendCommand`, { connection_id , command })
   return res.data
 }
 
@@ -34,5 +44,7 @@ export default {
   configIPAddr,
   configOSPFArea,
   // getIPRoutingTable,
-  configStaticRoute
+  configStaticRoute,
+  runTest,
+  sendCommand
 }

@@ -1,5 +1,8 @@
 // 在enable下
 config terminal
+
+hostname R1
+
 interface f0/0
 ip address 172.16.0.2 255.255.255.0
 no shutdown
@@ -20,12 +23,18 @@ no ip address
 shutdown
 exit
 
+no interface loopback 0
+no interface loopback 1
+no router ospf 1
+no ip domain-lookup
+config-register 0x2102
+
 line vty 0 4
 password CISCO
 login
 no exec-timeout
 exit
-enable password
+enable password CISCO
 end
 copy running-config start-up-config
 

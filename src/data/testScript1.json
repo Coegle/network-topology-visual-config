@@ -1,0 +1,14 @@
+[
+  {
+    "routerIdx": 2,
+    "command": "ping 192.168.1.1"
+  },
+  {
+    "routerIdx": 0,
+    "command": "ping 192.168.2.2"
+  },
+  {
+    "routerIdx": 0,
+    "command": "show ip route"
+  }
+]
