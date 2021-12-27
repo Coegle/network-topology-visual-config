@@ -57,6 +57,8 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
             alignment: go.Spot.Right,
             editable: true
           },
+          { segmentIndex: -1, segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright },
           new go.Binding('text', 'srcInf'),
           new go.Binding("visible", "isHighlighted").ofObject(),
         ),
@@ -69,6 +71,8 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
             alignment: go.Spot.Left,
             editable: true
           },
+          { segmentIndex: 0, segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright },
           new go.Binding('text', 'dstInf'),
           new go.Binding("visible", "isHighlighted").ofObject(),
         )
