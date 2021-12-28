@@ -1,6 +1,6 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { Col, Row, Form, Button, ArrayField } from '@douyinfe/semi-ui'
-import { IconPlusCircle, IconMinusCircle } from '@douyinfe/semi-icons';
+import { Form, Button, ArrayField } from '@douyinfe/semi-ui'
+import { IconPlusCircle, IconMinusCircle, IconSave } from '@douyinfe/semi-icons';
 import API from '../services/api'
 
 const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
@@ -8,18 +8,17 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
   const formRef = createRef()
 
   useEffect(() => {
-    console.log('initStaticConfig', initConfig);
+    // console.log('initStaticConfig', initConfig)
     setCurrentConf({ staticRoute: initConfig })
     formRef.current.formApi.setValue('staticRoute', initConfig)
   }, [initConfig])
 
   const onClickSendConfig = async event => {
-    preSaveInfConfig('staticRoute', currentConf.staticRoute)
     const idx = event.currentTarget.dataset.idx
-    console.log(idx);
+    // console.log(idx);
 
     const staticRouteConfig = currentConf.staticRoute[idx]
-    console.log(staticRouteConfig);
+    // console.log(staticRouteConfig);
 
     await API.configStaticRoute({
       connection_id,
@@ -34,7 +33,7 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
         ref={formRef}
         style={{ width: 500 }}
         onChange={formValue => {
-          console.log('formChange', formValue.values);
+          // console.log('formChange', formValue.values);
           setCurrentConf(formValue.values)
         }}
       >
@@ -42,6 +41,10 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
           {({ add, arrayFields }) => (
             <React.Fragment>
               <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增配置</Button>
+              <Button onClick={() => { preSaveInfConfig('staticRoute', currentConf.staticRoute) }} 
+              icon={<IconSave />} 
+              style={{marginLeft: '8px'}}
+              theme='light'>保存</Button>
               {
                 arrayFields.map(({ field, key, remove }, idx) => (
                   <div key={key} style={{ width: 1000, display: 'flex' }}>
@@ -49,25 +52,25 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
                       noLabel
                       placeholder='网段'
                       field={`${field}[ip_addr]`}
-                      style={{ width: 200, marginRight: 16 }}
+                      style={{ width: 150, marginRight: 16 }}
                     >
                     </Form.Input>
                     <Form.Input
                       noLabel
                       placeholder='掩码'
                       field={`${field}[netMask]`}
-                      style={{ width: 200, marginRight: 16 }}
+                      style={{ width: 150, marginRight: 16 }}
                     >
                     </Form.Input>
                     <Form.Input
-                    noLabel
-                    placeholder='端口号(s0/0/0)'
+                      noLabel
+                      placeholder='端口号(s0/0/0)'
                       field={`${field}[interfaceNum]`}
-                      style={{ width: 200, marginRight: 16 }}
+                      style={{ width: 120, marginRight: 16 }}
                     >
                     </Form.Input>
                     <Button type='danger' theme='borderless' icon={<IconMinusCircle />} onClick={remove} style={{ margin: 12 }}></Button>
-                    <Button data-idx={idx} onClick={onClickSendConfig} style={{ margin: 12 }} >配置并保存</Button>
+                    <Button data-idx={idx} onClick={onClickSendConfig} style={{ margin: 12 }} >配置</Button>
                   </div>
                 ))
               }

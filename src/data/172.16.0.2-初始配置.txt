@@ -26,6 +26,7 @@ exit
 no interface loopback 0
 no interface loopback 1
 no router ospf 1
+no router rip
 no ip domain-lookup
 config-register 0x2102
 
@@ -39,4 +40,3 @@ end
 copy running-config start-up-config
 
 // 最后一定要确保 copy 成功了
-

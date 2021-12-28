@@ -50,20 +50,20 @@
         {
           "name": "FastEthernet0/1",
           "abbr": "f0/1",
-          "ip_addr": "192.168.2.1",
+          "ip_addr": "192.168.1.2",
           "netMask": "255.255.255.0",
           "configurable": true
         },
         {
           "name": "Serial0/0/0",
           "abbr": "s0/0/0",
-          "ip_addr": "192.168.1.2",
-          "netMask": "255.255.255.0",
           "configurable": true
         },
         {
           "name": "Serial0/0/1",
           "abbr": "s0/0/1",
+          "ip_addr": "192.168.2.1",
+          "netMask": "255.255.255.0",
           "configurable": true
         }
       ],

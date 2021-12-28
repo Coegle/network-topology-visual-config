@@ -97,9 +97,9 @@
       ],
       "staticRoute": [
         {
-          "ip_addr": "192.168.2.0",
+          "ip_addr": "192.168.1.0",
           "netMask": "255.255.255.0",
-          "interfaceNum": "s0/0/0"
+          "interfaceNum": "s0/0/1"
         }
       ]
     }

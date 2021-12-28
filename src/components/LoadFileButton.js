@@ -22,9 +22,9 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
     }
 
     if (configs.fakeBackend) {
-      console.log(content);
+      // console.log(content);
       content.routersConfig = content.routersConfig.map((it, idx) => { return { ...it, connection_id: idx } })
-      console.log(content);
+      // console.log(content);
       setFile({ name, content: content })
       history.push('/topology')
     }
@@ -55,19 +55,22 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
       reader.onload = async event => {
         const config = JSON.parse(event.target.result)
         connectRouters({ name: newFile.name, content: config })
-        console.log('File: Loaded')
+        // console.log('File: Loaded')
       }
       reader.readAsText(newFile)
-      console.log('File: Loading')
+      // console.log('File: Loading')
     }
     else {
       setFile(null)
-      console.log('File: setToNull')
+      // console.log('File: setToNull')
     }
+    event.target.value = null
   }
 
   return (
-    <div>
+    <div
+    style={{display: 'inline-block', height: '30px', margin: '12px 0 12px 0' }}
+    >
       {
         showFileName && file !== null
           ? <Text>{file.name}</Text>
@@ -75,7 +78,7 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
       }
       <Button
         onClick={() => { inputRef.current.click() }}
-        style={{ padding: '6px 24px', marginRight: 12 }}
+        style={{ margin: "0 12px 0 12px" }}
         type="primary">
         {buttonLabel}
       </Button>
@@ -93,7 +96,7 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
         ref={inputRef}
         type="file"
         style={{ display: 'none' }}
-        onInput={loadConfigFile} />
+        onChange={loadConfigFile} />
     </div>
   )
 }

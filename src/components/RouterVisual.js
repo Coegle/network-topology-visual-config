@@ -1,6 +1,6 @@
 import { Card, Row, Typography } from '@douyinfe/semi-ui'
 import React from 'react'
-import Picture from './Picture';
+import Picture from './Picture'
 import router from '../image/router.png'
 const { Title } = Typography
 
@@ -26,8 +26,8 @@ const RouterVisual = ({ config, setSelectedDev }) => {
   return (
     <div>
       <Row>
-        <Title heading={3}>拓扑图</Title>
-        <Card><Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} /></Card>
+        <Title heading={3} style={{paddingBottom: '10px'}}>拓扑图</Title>
+        <Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} />
       </Row>
     </div>
 

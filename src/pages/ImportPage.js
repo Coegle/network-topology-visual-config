@@ -8,7 +8,7 @@ const ImportPage = ({ setFile, file }) => {
   return (
     <Empty
       image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
-      title={ file !== null ? file.name : '请选择拓扑'}
+      title={file !== null ? file.name : '请选择拓扑'}
     >
       <LoadFileButton file={file} setFile={setFile} hasNew={true} showFileName={false} buttonLabel={'打开拓扑文件'} />
     </Empty>

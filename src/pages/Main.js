@@ -35,11 +35,11 @@ const MainPage = ({ file, setFile }) => {
     <Layout>
       <Content>
         <LoadFileButton file={file} setFile={setFile} hasNew={false} showFileName={true} buttonLabel={'重新加载配置文件'} />
-        <Button onClick={handleSave}>Save</Button>
+        <Button onClick={handleSave}>另存为</Button>
         <Layout>
           <Row gutter={16} justify='space-between'>
             <Col span={10}>
-              <Card><RouterVisual config={newConfig} setSelectedDev={setSelectedDev} /></Card>
+              <Card style={{marginBottom: "10px"}}><RouterVisual config={newConfig} setSelectedDev={setSelectedDev} /></Card>
               <Card><TestUnit configFile={file} /></Card>
             </Col>
             <Col span={14}>

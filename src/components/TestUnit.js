@@ -8,48 +8,48 @@ const TestUnit = ({ configFile }) => {
   const [testFile, setTestFile] = useState(null)
   const testDetailRef = useRef()
   useState(() => {
-
+    
   }, [testFile])
 
   const testAllScripts = async ({ testScriptContent }) => {
-    let errorInfo = []
-    let details = []
     let allSuccess = 1
     for (const [idx, command] of testScriptContent.entries()) {
+      const connection_id = configFile.content.routersConfig[command.routerIdx].connection_id
       try {
-        const { success, detail } = await api.runTest({
-          connection_id: configFile.content.routersConfig[command.routerIdx].connection_id,
-          command: command.command
-        })
-        details = details.concat(detail)
-        allSuccess = allSuccess && success
-        if (!success) {
-          errorInfo = errorInfo.concat(idx)
+        if (command.type === 'ping') {
+          const { success, echo } = await api.testPing({
+            connection_id,
+            ip_addr: command.command
+          })
+          if (!success) {
+            Toast.error(`用例 ${idx} 未通过！`)
+            allSuccess = 0
+            break
+          }
+          testDetailRef.current.value = testDetailRef.current.value.concat(echo)
+        }
+        else {
+          const { echo } = await api.sendCommand({
+            connection_id, command: command.command
+          })
+          testDetailRef.current.value = testDetailRef.current.value.concat(echo)
         }
       } catch (excep) {
-        allSuccess = false
-        errorInfo = errorInfo.concat(idx)
+        Toast.error(`用例 ${idx} 未通过！`)
+        allSuccess = 0
         break
       }
     }
 
-    testDetailRef.current.value = details.join('\n')
-
-    if (!allSuccess) { // 出错了
-      Toast.error(`${errorInfo.join(', ')} 测试未通过！`)
-    }
-    else {
+    if (allSuccess) { // 出错了
       Toast.success('测试通过！')
     }
-
   }
   return (
     <>
       <LoadTestFileButton file={testFile} setFile={setTestFile} testAllScripts={testAllScripts} />
-
-      <br></br>
-      <Title heading={4}>测试结果</Title>
-      <TextArea ref={testDetailRef} style={{ marginTop: 10 }} readonly showClear />
+      <Title heading={4} style={{ margin: "10px 0 10px 0" }}>测试结果</Title>
+      <TextArea ref={testDetailRef} readonly showClear rows={7} />
     </>
   )
 }

@@ -5,7 +5,7 @@ import { ReactDiagram } from 'gojs-react'
 import './Picture.css'
 
 const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
-  console.log(dataArray);
+  // console.log(dataArray);
   const initDiagram = () => {
     const $ = go.GraphObject.make
     const diagram = $(go.Diagram,
@@ -26,7 +26,7 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
         },
         new go.Binding('location', 'loc', go.Point.parse).makeTwoWay(go.Point.stringify),
         $(go.Picture, {//节点显示图片
-          width: 75,
+          width: 60,
           height: 40
         },
           new go.Binding('source', 'img'),
@@ -57,8 +57,10 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
             alignment: go.Spot.Right,
             editable: true
           },
-          { segmentIndex: -1, segmentOffset: new go.Point(NaN, NaN),
-            segmentOrientation: go.Link.OrientUpright },
+          {
+            segmentIndex: -1, segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright
+          },
           new go.Binding('text', 'srcInf'),
           new go.Binding("visible", "isHighlighted").ofObject(),
         ),
@@ -71,8 +73,10 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
             alignment: go.Spot.Left,
             editable: true
           },
-          { segmentIndex: 0, segmentOffset: new go.Point(NaN, NaN),
-            segmentOrientation: go.Link.OrientUpright },
+          {
+            segmentIndex: 0, segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright
+          },
           new go.Binding('text', 'dstInf'),
           new go.Binding("visible", "isHighlighted").ofObject(),
         )
@@ -93,15 +97,13 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
   }
 
   return (
-    <div>
-      <Row type="flex" justify="center">
-        <ReactDiagram
-          initDiagram={initDiagram}
-          divClassName='diagram-component'
-          nodeDataArray={nodeArray}
-          linkDataArray={dataArray}
-        />
-      </Row>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: "center" }} >
+      <ReactDiagram
+        initDiagram={initDiagram}
+        divClassName='diagram-component'
+        nodeDataArray={nodeArray}
+        linkDataArray={dataArray}
+      />
     </div>
   )
 

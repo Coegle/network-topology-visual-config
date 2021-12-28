@@ -22,7 +22,7 @@ const RouterConf = ({ routersConfig, preSaveRoutersConfig, selectedDev }) => {
   return (
     <div>
       <Title heading={3}>路由器配置-{routersConfig[selectedDev].routerName}</Title>
-      <Card><InfForm initConfig={routerConfig.IPAddrConfig} connection_id={routerConfig.connection_id} preSaveInfConfig={preSaveRouterConfig} /></Card>
+      <InfForm initConfig={routerConfig.IPAddrConfig} connection_id={routerConfig.connection_id} preSaveInfConfig={preSaveRouterConfig} />
       <Collapse>
         <Collapse.Panel header="静态路由" itemKey="1">
           <StaticRouteConf initConfig={routerConfig.staticRoute} connection_id={routerConfig.connection_id} preSaveInfConfig={preSaveRouterConfig} />

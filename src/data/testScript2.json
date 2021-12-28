@@ -13,5 +13,10 @@
     "type": "sendCommand",
     "routerIdx": 0,
     "command": "show ip route"
+  },
+  {
+    "type": "sendCommand",
+    "routerIdx": 0,
+    "command": "show ip ospf database"
   }
 ]

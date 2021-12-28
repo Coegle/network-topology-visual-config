@@ -13,19 +13,20 @@ const LoadTestFileButton = ({ file, setFile, testAllScripts}) => {
       reader.onload = async event => {
         const config = JSON.parse(event.target.result)
         testAllScripts({ testScriptContent: config })
-        console.log('File: Loaded')
+        // console.log('File: Loaded')
       }
       reader.readAsText(newFile)
-      console.log('File: Loading')
+      // console.log('File: Loading')
     }
     else {
       setFile(null)
-      console.log('File: setToNull')
+      // console.log('File: setToNull')
     }
+    event.target.value = null
   }
 
   return (
-    <div>
+    <>
       {
         file !== null
           ? <Text>{file.name}</Text>
@@ -41,8 +42,8 @@ const LoadTestFileButton = ({ file, setFile, testAllScripts}) => {
         ref={inputRef}
         type="file"
         style={{ display: 'none' }}
-        onInput={loadTestFile} />
-    </div>
+        onChange={loadTestFile} />
+    </>
   )
 }
 export default LoadTestFileButton

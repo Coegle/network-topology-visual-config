@@ -1,5 +1,5 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { Col, Row, Form, Button, ArrayField, Toast } from '@douyinfe/semi-ui'
+import { Col, Row, Form, Button, ArrayField } from '@douyinfe/semi-ui'
 import API from '../services/api'
 
 const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
@@ -8,7 +8,7 @@ const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
   const formRef = createRef()
 
   useEffect(() => {
-    console.log('initConfig', initConfig);
+    // console.log('initConfig', initConfig);
     setCurrentConf({ IPAddrConfig: initConfig })
     formRef.current.formApi.setValue('IPAddrConfig', initConfig)
   }, [initConfig])
@@ -22,14 +22,14 @@ const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
     const idx = event.currentTarget.dataset.idx
     disableConfSetting(idx)
     const values = formRef.current.formApi.getValues()
-    console.log(values);
+    // console.log(values);
     formRef.current.formApi.setValues(values)
     setCurrentConf(values)
   }
 
   const onClickReset = event => {
     const idx = event.currentTarget.dataset.idx
-    console.log('currentConf', currentConf)
+    // console.log('currentConf', currentConf)
     formRef.current.formApi.setValues(currentConf)
     disableConfSetting(idx)
   }
@@ -53,42 +53,43 @@ const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
   const disableConfSetting = p => {
     setConfState(confState.map((val, idx) => idx === Number(p) ? !val : val))
   }
+
+  const formRowStyle = {
+    display: "flex",
+    alignItems: "center"
+  }
   return (
-    <div>
-      <Row>
-        <Col span={4}>
+    <div style={{ padding: "20px 10px 0px 20px" }}>
+      <Row style={{ display: 'flex', alignItems: 'center' }}>
+        <Col span={2}>
           <div>端口</div>
         </Col>
-        <Col span={9}>
+        <Col span={11}>
           <div>IP地址/掩码</div>
-        </Col>
-        <Col span={1}>
-          <div>状态</div>
         </Col>
       </Row>
       <Form
         ref={formRef}
         layout='horizontal'
         style={{ flexDirection: 'column' }}
-        onChange={values => console.log("formValue", values)}
+        // onChange={values => console.log("formValue", values)}
       >
         <ArrayField field='IPAddrConfig'>
           {
             ({ arrayFields }) => (
               <>
                 {arrayFields.map(({ field, key }, idx) =>
-                  <Row key={key}>
-                    <Col span={4}> {initConfig[idx].name} </Col>
-                    <Col span={9}>
+                  <Row key={key} style={formRowStyle}>
+                    <Col span={2}> {initConfig[idx].abbr} </Col>
+                    <Col span={11}>
                       <Form.InputGroup noLabel >
-                        <Form.Input field={`${field}[ip_addr]`} disabled={!confState[idx]} style={{ width: 140 }} />
-                        <Form.Input field={`${field}[netMask]`} disabled={!confState[idx]} style={{ width: 130 }} />
+                        <Form.Input field={`${field}[ip_addr]`} disabled={!confState[idx]} style={{ width: 127 }} />
+                        <Form.Input field={`${field}[netMask]`} disabled={!confState[idx]} style={{ width: 127 }} />
                       </Form.InputGroup>
                     </Col>
-                    <Col span={1}> up </Col>
-                    <Col span={4}>
+                    <Col span={5}>
                       {confState[idx]
-                        ? <Button data-idx={idx} onClick={onSubmit} >确定</Button>
+                        ? <Button data-idx={idx} onClick={onSubmit} style={{marginRight: "2px"}}>确定</Button>
                         : <Button data-idx={idx} onClick={(onClickEdit)} disabled={!initConfig[idx].configurable} >编辑</Button>
                       }
                       {confState[idx] ? <Button data-idx={idx} onClick={onClickReset} >取消</Button> : null}

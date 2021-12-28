@@ -1,5 +1,5 @@
 import { Button, Form, TextArea, Toast } from '@douyinfe/semi-ui'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import api from '../services/api'
 import configs from '../utils/configs'
 
@@ -8,13 +8,12 @@ const InterativeConf = ({ connection_id }) => {
 
   const sendCommand = async (values) => {
     const command = values.command
-    setEcho(echo.concat(command))
     try {
-      const res = await api.sendCommand({ connection_id, command })
-      setEcho(echo.concat(res.data))
+      const { echo } = await api.sendCommand({ connection_id, command })
+      setEcho(echo)
     } catch (excep) {
       if (!configs.fakeBackend) {
-        Toast.info('出错了！')
+        Toast.error('出错了！')
       }
     }
   }
