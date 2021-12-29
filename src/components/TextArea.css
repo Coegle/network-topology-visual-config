@@ -1,4 +1,11 @@
 .semi-input-textarea-disabled {
-  color: rgba(var(--semi-grey-9), 1);
-  font-size: 18px
+  color: white;
+  font-size: 18px;
+  background-color: black;
+  padding: 20px;
+  font-family: consolas;
+  cursor: default;
+}
+.semi-input-textarea-disabled:hover {
+  background-color: black;
 }

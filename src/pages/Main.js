@@ -47,12 +47,22 @@ const MainPage = ({ file, setFile }) => {
     const linkFrom = newConfig.links[linkIdx].from
     const fromPort = linkFrom.interface
     const connection_id = newConfig.routersConfig[linkFrom.routerIdx].connection_id
-    
-    const { success } = await api.testInf({
-      connection_id,
-      command: `show ip interface brief ${fromPort}`
-     })
-    return success
+    try {
+      const { success } = await api.testInf({
+        connection_id,
+        command: `show ip interface brief ${fromPort}`
+      })
+      if (success) {
+        Toast.success('链路连接成功！')
+      }
+      else {
+        Toast.error('链路连接失败！')
+      }
+      return success
+    }
+    catch {
+      Toast.error('链路连接失败！')
+    }
   }
   const { Content } = Layout
   return (

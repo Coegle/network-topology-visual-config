@@ -6,7 +6,10 @@ import ImportPage from './pages/ImportPage'
 const App = () => {
   const [file, setFile] = useState(null)
   return (
-    <>
+    <div style={{
+       height: "100vh",
+       marginTop: "-100px"
+      }}>
       <Switch>
         <Route path='/topology'>
           {
@@ -19,7 +22,7 @@ const App = () => {
           <ImportPage setFile={setFile} file={file} />
         </Route>
       </Switch>
-    </>
+    </div>
   )
 }
 

@@ -7,7 +7,8 @@ import LoadFileButton from '../components/LoadFileButton';
 const ImportPage = ({ setFile, file }) => {
   return (
     <Empty
-      image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
+      style={{marginBottom: '20vh', height: '100vh', justifyContent: 'center' }}
+      image={<IllustrationNoContent style={{ width: 200, height: 200 }} />}
       title={file !== null ? file.name : '请选择拓扑'}
     >
       <LoadFileButton file={file} setFile={setFile} hasNew={true} showFileName={false} buttonLabel={'打开拓扑文件'} />

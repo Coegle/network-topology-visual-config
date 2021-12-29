@@ -103,8 +103,8 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev, getLinkState }) => {
   };
   const doubleClickEvent = async (e, obj) => {
     const key = obj.part.data.key;
-    const test = await getLinkState({ linkIdx: key })
-    obj.path.stroke = test ? "green" : "red"
+    const success = await getLinkState({ linkIdx: key })
+    obj.path.stroke = success ? "green" : "red"
   }
 
   return (
