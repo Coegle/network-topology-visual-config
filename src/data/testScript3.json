@@ -15,8 +15,13 @@
     "command": "show ip route"
   },
   {
-    "type": "sendCommand",
+    "type": "testOSPF",
     "routerIdx": 0,
-    "command": "show ip ospf database"
+    "command": "show ip ospf database",
+    "requiredState": [
+      "Router Link States",
+      "Net Link States",
+      "Summary Net Link States"
+    ]
   }
 ]
