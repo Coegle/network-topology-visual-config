@@ -1,5 +1,5 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { Col, Row, Form, Button, ArrayField } from '@douyinfe/semi-ui'
+import { Col, Row, Form, Button, ArrayField, Toast } from '@douyinfe/semi-ui'
 import API from '../services/api'
 
 const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
@@ -42,12 +42,18 @@ const InfForm = ({ initConfig, connection_id, preSaveInfConfig }) => {
   const onClickSendConfig = async event => {
     const idx = event.currentTarget.dataset.idx
     const interfaceConfig = currentConf.IPAddrConfig[idx]
-    await API.configIPAddr({
-      connection_id,
-      interfaceNum: interfaceConfig.abbr,
-      ip_addr: interfaceConfig.ip_addr,
-      netMask: interfaceConfig.netMask
-    })
+    try{
+      await API.configIPAddr({
+        connection_id,
+        interfaceNum: interfaceConfig.abbr,
+        ip_addr: interfaceConfig.ip_addr,
+        netMask: interfaceConfig.netMask
+      })
+      Toast.success(`${interfaceConfig.abbr}端口配置成功！`)
+    }
+    catch (excep) {
+      Toast.error(`${interfaceConfig.abbr}端口配置失败！`)
+    }
   }
 
   const disableConfSetting = p => {

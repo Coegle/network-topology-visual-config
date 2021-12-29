@@ -1,0 +1,4 @@
+.semi-input-textarea-disabled {
+  color: rgba(var(--semi-grey-9), 1);
+  font-size: 18px
+}

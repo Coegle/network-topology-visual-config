@@ -1,5 +1,5 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { Form, Button, ArrayField } from '@douyinfe/semi-ui'
+import { Form, Button, ArrayField, Toast } from '@douyinfe/semi-ui'
 import { IconPlusCircle, IconMinusCircle, IconSave } from '@douyinfe/semi-icons';
 import API from '../services/api'
 
@@ -19,11 +19,18 @@ const OSPFConfig = ({ initConfig, connection_id, preSaveInfConfig }) => {
 
     const OSPFConfig = currentConf.OSPFConfig[idx]
     // console.log(OSPFConfig);
+    try {
 
+    
     await API.configOSPFArea({
       connection_id,
       ...OSPFConfig
     })
+    Toast.success(`OSPF配置成功！`)
+  }
+  catch (excep) {
+    Toast.error(`OSPF配置失败！`)
+  }
   }
 
   return (

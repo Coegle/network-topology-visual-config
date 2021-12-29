@@ -1,4 +1,4 @@
-POST http://127.16.0.1:8888/telnet
+POST http://172.16.0.1:8888/telnet
 Content-Type: application/json
 
 {
@@ -6,7 +6,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/telnet
+POST http://172.16.0.1:8888/telnet
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/telnet
+POST http://172.16.0.1:8888/telnet
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/interface
+POST http://172.16.0.1:8888/interface
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/interface
+POST http://172.16.0.1:8888/interface
 Content-Type: application/json
 
 {
@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/interface
+POST http://172.16.0.1:8888/interface
 Content-Type: application/json
 
 {
@@ -55,7 +55,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/interface
+POST http://172.16.0.1:8888/interface
 Content-Type: application/json
 
 {
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/ipRoute
+POST http://172.16.0.1:8888/ipRoute
 Content-Type: application/json
 
 {
@@ -77,7 +77,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/ipRoute
+POST http://172.16.0.1:8888/ipRoute
 Content-Type: application/json
 
 {
@@ -88,7 +88,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/sendCommand
+POST http://172.16.0.1:8888/sendCommand
 Content-Type: application/json
 
 {
@@ -97,7 +97,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.16.0.1:8888/ospf
+POST http://172.16.0.1:8888/ospf
 Content-Type: application/json
 
 {

@@ -1,5 +1,5 @@
 import React, { createRef, useState, useEffect } from 'react'
-import { Form, Button, ArrayField } from '@douyinfe/semi-ui'
+import { Form, Button, ArrayField, Toast } from '@douyinfe/semi-ui'
 import { IconPlusCircle, IconMinusCircle, IconSave } from '@douyinfe/semi-icons';
 import API from '../services/api'
 
@@ -19,11 +19,16 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
 
     const staticRouteConfig = currentConf.staticRoute[idx]
     // console.log(staticRouteConfig);
-
-    await API.configStaticRoute({
-      connection_id,
-      ...staticRouteConfig
-    })
+    try {
+      await API.configStaticRoute({
+        connection_id,
+        ...staticRouteConfig
+      })
+      Toast.success('静态路由配置成功！')
+    }
+    catch {
+      Toast.error('静态路由配置失败！')
+    }
   }
 
   return (
@@ -41,10 +46,10 @@ const StaticRouteConf = ({ initConfig, connection_id, preSaveInfConfig }) => {
           {({ add, arrayFields }) => (
             <React.Fragment>
               <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增配置</Button>
-              <Button onClick={() => { preSaveInfConfig('staticRoute', currentConf.staticRoute) }} 
-              icon={<IconSave />} 
-              style={{marginLeft: '8px'}}
-              theme='light'>保存</Button>
+              <Button onClick={() => { preSaveInfConfig('staticRoute', currentConf.staticRoute) }}
+                icon={<IconSave />}
+                style={{ marginLeft: '8px' }}
+                theme='light'>保存</Button>
               {
                 arrayFields.map(({ field, key, remove }, idx) => (
                   <div key={key} style={{ width: 1000, display: 'flex' }}>
