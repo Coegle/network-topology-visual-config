@@ -1,10 +1,9 @@
 import React from 'react'
-import { Row } from '@douyinfe/semi-ui'
 import * as go from 'gojs'
 import { ReactDiagram } from 'gojs-react'
 import './Picture.css'
 
-const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
+const Picture = ({ nodeArray, dataArray, setSelectedDev, getLinkState }) => {
   // console.log(dataArray);
   const initDiagram = () => {
     const $ = go.GraphObject.make
@@ -40,8 +39,15 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
         {
           mouseEnter: mouseEnter,
           mouseLeave: mouseLeave,
+          doubleClick: doubleClickEvent
         },
-        $(go.Shape, { strokeWidth: 2, stroke: "black" }), // 线宽3像素，褐色
+        $(go.Shape,
+          { strokeWidth: 2 },
+          new go.Binding("stroke", "Connected",
+            function (h) {
+              return h ? "#e1e1e1" : "#f8da07" || "#f8da07";
+            }).ofObject()
+        ),
         $(go.TextBlock, {
           margin: 4,
           stroke: 'black',
@@ -94,6 +100,11 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev }) => {
   const changeRouter = async (e, obj) => {
     const routerId = obj.part.data.key
     setSelectedDev(routerId)
+  };
+  const doubleClickEvent = async (e, obj) => {
+    const key = obj.part.data.key;
+    const test = await getLinkState({ linkIdx: key })
+    obj.path.stroke = test ? "green" : "red"
   }
 
   return (

@@ -42,6 +42,18 @@ const MainPage = ({ file, setFile }) => {
       }
     }
   }
+
+  const getLinkState = async ({ linkIdx }) => {
+    const linkFrom = newConfig.links[linkIdx].from
+    const fromPort = linkFrom.interface
+    const connection_id = newConfig.routersConfig[linkFrom.routerIdx].connection_id
+    
+    const { success } = await api.testInf({
+      connection_id,
+      command: `show ip interface brief ${fromPort}`
+     })
+    return success
+  }
   const { Content } = Layout
   return (
     <Layout>
@@ -53,7 +65,7 @@ const MainPage = ({ file, setFile }) => {
           <Row gutter={16} justify='space-between'>
             <Col span={10}>
               <Card style={{ marginBottom: "10px" }}>
-                <RouterVisual config={newConfig} setSelectedDev={setSelectedDev} />
+                <RouterVisual config={newConfig} setSelectedDev={setSelectedDev} getLinkState={getLinkState} />
               </Card>
               <Card>
                 <TestUnit configFile={file} />

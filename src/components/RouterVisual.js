@@ -4,7 +4,7 @@ import Picture from './Picture'
 import router from '../image/router.png'
 const { Title } = Typography
 
-const RouterVisual = ({ config, setSelectedDev }) => {
+const RouterVisual = ({ config, setSelectedDev, getLinkState }) => {
 
   const nodeArray = config.routersConfig.map((it, idx) => {
     // { key : 0, name: 'R1', img: router }
@@ -27,7 +27,7 @@ const RouterVisual = ({ config, setSelectedDev }) => {
     <div>
       <Row>
         <Title heading={3} style={{paddingBottom: '10px'}}>拓扑图</Title>
-        <Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} />
+        <Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} getLinkState={getLinkState}/>
       </Row>
     </div>
 
