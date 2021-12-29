@@ -16,6 +16,7 @@ const TestUnit = ({ configFile }) => {
     setAllEcho('')
     let allSuccess = 1
     let currentEchos = []
+    if (!Array.isArray(testScriptContent)) return
     for (const [idx, command] of testScriptContent.entries()) {
       const connection_id = configFile.content.routersConfig[command.routerIdx].connection_id
       try {

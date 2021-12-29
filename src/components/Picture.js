@@ -91,8 +91,9 @@ const Picture = ({ nodeArray, dataArray, setSelectedDev, getLinkState }) => {
     return diagram
   }
 
-  function mouseEnter(e, obj) {
+  const mouseEnter = async (e, obj) => {
     obj.isHighlighted = true
+    doubleClickEvent(e, obj)
   };
   function mouseLeave(e, obj) {
     obj.isHighlighted = false

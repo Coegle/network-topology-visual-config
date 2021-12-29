@@ -7,8 +7,7 @@ const App = () => {
   const [file, setFile] = useState(null)
   return (
     <div style={{
-       height: "100vh",
-       marginTop: "-100px"
+       height: "100vh"
       }}>
       <Switch>
         <Route path='/topology'>
