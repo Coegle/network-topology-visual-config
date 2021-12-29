@@ -35,11 +35,29 @@ const sendCommand = async ({connection_id, command}) => {
   return res.data
 }
 
+const reset = async ({connection_id}) => {
+  const res = await axios.post(`${baseUrl}/reset`, {connection_id})
+  return res.data
+}
+
+const testInf = async ({connection_id, command}) => {
+  const res = await axios.post(`${baseUrl}/testInf`, { connection_id , command })
+  return res.data
+}
+
+const testOSPF = async ({ connection_id, command, requiredState }) => {
+  const res = await axios.post(`${baseUrl}/testOSPF`, { connection_id, command, requiredState })
+  return res.data
+}
+
 export default {
   connectRouter,
   configIPAddr,
   configOSPFArea,
   configStaticRoute,
   testPing,
-  sendCommand
+  sendCommand,
+  reset,
+  testInf,
+  testOSPF
 }
