@@ -1,4 +1,4 @@
-import { TextArea, Toast, Typography } from '@douyinfe/semi-ui'
+import { Spin, TextArea, Toast, Typography } from '@douyinfe/semi-ui'
 import React, { useState } from 'react'
 import LoadTestFileButton from './LoadTestFileButton'
 import api from '../services/api'
@@ -8,15 +8,14 @@ const { Title } = Typography
 const TestUnit = ({ configFile }) => {
   const [testFile, setTestFile] = useState(null)
   const [allEcho, setAllEcho] = useState('请加载测试脚本')
-  useState(() => {
-
-  }, [testFile])
+  const [testing, setTesting] = useState(false)
 
   const testAllScripts = async ({ testScriptContent }) => {
     setAllEcho('')
     let allSuccess = 1
     let currentEchos = []
     if (!Array.isArray(testScriptContent)) return
+    setTesting(true)
     for (const [idx, command] of testScriptContent.entries()) {
       const connection_id = configFile.content.routersConfig[command.routerIdx].connection_id
       try {
@@ -57,6 +56,7 @@ const TestUnit = ({ configFile }) => {
         break
       }
     }
+    setTesting(false)
     setAllEcho(currentEchos.join('\r\n'))
     if (allSuccess) {
       Toast.success('测试通过！')
@@ -64,7 +64,11 @@ const TestUnit = ({ configFile }) => {
   }
   return (
     <>
-      <LoadTestFileButton file={testFile} setFile={setTestFile} testAllScripts={testAllScripts} />
+      {
+        testing
+          ? <Spin />
+          : <LoadTestFileButton file={testFile} setFile={setTestFile} testAllScripts={testAllScripts} />
+      }
       <Title heading={4} style={{ margin: "10px 0 10px 0" }}>测试结果</Title>
       <TextArea value={allEcho} readonly showClear rows={18} />
     </>
