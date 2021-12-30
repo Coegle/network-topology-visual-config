@@ -40,6 +40,11 @@ const reset = async ({connection_id}) => {
   return res.data
 }
 
+const reload = async ({connection_id}) => {
+  const res = await axios.post(`${baseUrl}/reload`, {connection_id})
+  return res.data
+}
+
 const testInf = async ({connection_id, command}) => {
   const res = await axios.post(`${baseUrl}/testInf`, { connection_id , command })
   return res.data
@@ -59,5 +64,6 @@ export default {
   sendCommand,
   reset,
   testInf,
-  testOSPF
+  testOSPF,
+  reload
 }

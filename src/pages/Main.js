@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Row, Col, Layout, Button, Toast } from '@douyinfe/semi-ui'
+import { useHistory } from 'react-router-dom'
+import { Card, Row, Col, Layout, Button, Toast, Spin } from '@douyinfe/semi-ui'
 import RouterConf from '../components/RouterConf'
 import RouterVisual from '../components/RouterVisual'
 import LoadFileButton from '../components/LoadFileButton'
@@ -9,6 +10,8 @@ import api from '../services/api'
 const MainPage = ({ file, setFile }) => {
   const [selectedDev, setSelectedDev] = useState(0)
   const [newConfig, setNewConfig] = useState(file.content)
+  const [reloading, setReloading] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     setNewConfig(file.content)
@@ -32,6 +35,7 @@ const MainPage = ({ file, setFile }) => {
   }
 
   const reset = async () => {
+    setReloading(true)
     for (const [idx, it] of newConfig.routersConfig.entries()) {
       try {
         const { echo } = await api.reset({ connection_id: it.connection_id })
@@ -40,6 +44,23 @@ const MainPage = ({ file, setFile }) => {
       catch (excep) {
         Toast.error(`重置${it.routerName}失败！`)
       }
+    }
+    setReloading(false)
+    history.push('/')
+  }
+
+  const reload = async () => {
+    setReloading(true)
+    for (const [idx, it] of newConfig.routersConfig.entries()) {
+      try {
+        const { echo } = await api.reload({ connection_id: it.connection_id })
+        console.log(echo);
+      }
+      catch (excep) {
+        Toast.error(`重启${it.routerName}失败！`)
+      }
+      setReloading(false)
+      history.push('/')
     }
   }
 
@@ -70,7 +91,11 @@ const MainPage = ({ file, setFile }) => {
       <Content>
         <LoadFileButton file={file} setFile={setFile} hasNew={false} showFileName={true} buttonLabel={'重新加载配置文件'} />
         <Button onClick={handleSave}>另存为</Button>
-        <Button style={{ marginLeft: 10 }} onClick={reset}>清空配置</Button>
+        {
+          reloading
+            ? <Spin style={{ marginLeft: 10 }} />
+            : <Button style={{ marginLeft: 10 }} onClick={reload}>清空配置</Button>
+        }
         <Layout>
           <Row gutter={16} justify='space-between'>
             <Col span={10}>

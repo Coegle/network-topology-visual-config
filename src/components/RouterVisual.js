@@ -1,4 +1,4 @@
-import { Card, Row, Typography } from '@douyinfe/semi-ui'
+import { Row, Typography } from '@douyinfe/semi-ui'
 import React from 'react'
 import Picture from './Picture'
 import router from '../image/router.png'
@@ -26,8 +26,8 @@ const RouterVisual = ({ config, setSelectedDev, getLinkState }) => {
   return (
     <div>
       <Row>
-        <Title heading={3} style={{paddingBottom: '10px'}}>拓扑图</Title>
-        <Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} getLinkState={getLinkState}/>
+        <Title heading={3} style={{ paddingBottom: '10px' }}>拓扑图</Title>
+        <Picture nodeArray={nodeArray} dataArray={dataArray} setSelectedDev={setSelectedDev} getLinkState={getLinkState} />
       </Row>
     </div>
 

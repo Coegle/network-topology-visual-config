@@ -142,6 +142,16 @@
         "interface": "s0/0/1"
       },
       "network": "192.168.2.0"
+    },
+    {
+      "from": {
+        "routerIdx": 0,
+        "interface": "s0/0/1"
+      },
+      "to": {
+        "routerIdx": 2,
+        "interface": "s0/0/0"
+      }
     }
   ]
 }
