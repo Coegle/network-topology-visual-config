@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { Button, Modal, Typography } from '@douyinfe/semi-ui'
+import React, { useRef, useState } from 'react'
+import { Button, Modal, Spin, Typography } from '@douyinfe/semi-ui'
 import blankConfigFile from '../data/blankConfig.json'
 import configs from '../utils/configs'
 import api from '../services/api'
@@ -9,18 +9,24 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
   const { Text } = Typography
   const inputRef = useRef()
   const history = useHistory()
+  const [buttonState, setButtonState] = useState(true)
 
   const connectRouters = async ({ name, content }) => {
     let errorRouters = []
+    setButtonState(false)
     for (const [idx, router] of content.routersConfig.entries()) {
       try {
         const { connection_id } = await api.connectRouter({ routerId: idx })
+        if (connection_id === -1) {
+          errorRouters = errorRouters.concat(router.routerName)
+          break
+        }
         content.routersConfig[idx].connection_id = connection_id
       } catch (excep) {
         errorRouters = errorRouters.concat(router.routerName)
       }
     }
-
+    console.log(errorRouters);
     if (configs.fakeBackend) {
       // console.log(content);
       content.routersConfig = content.routersConfig.map((it, idx) => { return { ...it, connection_id: idx } })
@@ -32,19 +38,18 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
       const titleText = errorRouters.join(', ').concat('连接失败')
       Modal.error({
         title: titleText,
-        content: '重新尝试？',
-        okText: '重连',
-        cancelText: '取消',
-        onOk: connectRouters,
-        onCancel: () => {
-          setFile(null)
+        okText: '确定',
+        onOk: () => {
+          setButtonState(true)
         }
-      })
+      }
+      )
     }
     else {
       setFile({ name, content })
       history.push('/topology')
     }
+    setButtonState(true)
   }
 
   const loadConfigFile = event => {
@@ -69,21 +74,26 @@ const LoadFileButton = ({ file, setFile, hasNew, showFileName, buttonLabel }) =>
 
   return (
     <div
-    style={{display: 'inline-block', height: '30px', margin: '12px 0 12px 0' }}
+      style={{ display: 'inline-block', height: '30px', margin: '12px 0 12px 0' }}
     >
       {
         showFileName && file !== null
           ? <Text>{file.name}</Text>
           : null
       }
-      <Button
-        onClick={() => { inputRef.current.click() }}
-        style={{ margin: "0 12px 0 12px" }}
-        type="primary">
-        {buttonLabel}
-      </Button>
       {
-        hasNew
+        buttonState
+          ? <Button
+            onClick={() => { inputRef.current.click() }}
+            style={{ margin: "0 12px 0 12px" }}
+            type="primary">
+            {buttonLabel}
+          </Button>
+          : <Spin />
+      }
+
+      {
+        hasNew && buttonState
           ? <Button
             onClick={() => { connectRouters({ name: 'Untitled', content: blankConfigFile }) }}
             style={{ padding: '6px 24px', marginRight: 12 }}
