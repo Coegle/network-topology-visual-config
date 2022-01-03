@@ -11,7 +11,73 @@ const MainPage = ({ file, setFile }) => {
   const [selectedDev, setSelectedDev] = useState(0)
   const [newConfig, setNewConfig] = useState(file.content)
   const [reloading, setReloading] = useState(false)
+  const [configing, setConfiging] = useState(false)
   const history = useHistory()
+
+  const configAll = async () => {
+    let allSuccess = 1
+    setConfiging(true)
+    for (const [idx1, router] of newConfig.routersConfig.entries()) {
+      // interface
+      for (const [idx2, ipAddr] of router.IPAddrConfig.entries()) {
+        if (ipAddr.configurable !== undefined && ipAddr.ip_addr !== undefined && ipAddr.netMask !== undefined) {
+          try {
+            const result = await api.configIPAddr({
+              connection_id: router.connection_id,
+              interfaceNum: ipAddr.abbr,
+              ...ipAddr
+            })
+            console.log(result);
+          } catch (excep) {
+            allSuccess = 0
+            Toast.error(`配置 ${router.routerName} ${idx2} 失败！`)
+            break
+          }
+        }
+      }
+      // static route
+      if (router.staticRoute !== undefined) {
+        for (const [idx2, staticRoute] of router.staticRoute.entries()) {
+          if (staticRoute.interfaceNum !== undefined && staticRoute.ip_addr !== undefined && staticRoute.netMask !== undefined) {
+            try {
+              const result = await api.configStaticRoute({
+                connection_id: router.connection_id,
+                ...staticRoute
+              })
+              console.log(result);
+            } catch (excep) {
+              allSuccess = 0
+              Toast.error(`配置 ${router.routerName} ${idx2} 失败！`)
+              break
+            }
+          }
+        }
+      }
+      // ospf
+      // console.log("!!!!!",router.OSPFConfig);
+      if (router.OSPFConfig !== undefined) {
+        for (const [idx2, ospf] of router.OSPFConfig.entries()) {
+          if (ospf.ospf_id !== undefined && ospf.area_id !== undefined && ospf.ip_addr !== undefined && ospf.netMask !== undefined) {
+            try {
+              const result = await api.configOSPFArea({
+                connection_id: router.connection_id,
+                ...ospf
+              })
+              console.log(result);
+            } catch (excep) {
+              allSuccess = 0
+              Toast.error(`配置 ${router.routerName} ${idx2} 失败！`)
+              break
+            }
+          }
+        }
+      }
+    }
+    setConfiging(false)
+    if (allSuccess) {
+      Toast.success('一键配置成功！')
+    }
+  }
 
   useEffect(() => {
     setNewConfig(file.content)
@@ -95,6 +161,11 @@ const MainPage = ({ file, setFile }) => {
           reloading
             ? <Spin style={{ marginLeft: 10 }} />
             : <Button style={{ marginLeft: 10 }} onClick={reload}>清空配置</Button>
+        }
+        {
+          configing 
+          ? <Spin style={{ marginLeft: 10 }} />
+          :  <Button style={{ marginLeft: 10 }} onClick={configAll}>一键配置</Button>
         }
         <Layout>
           <Row gutter={16} justify='space-between'>
